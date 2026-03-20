@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Berean Buddy — Your Bible Study Companion</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Nunito:wght@400;500;600;700;800&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#FEFCF8;--bgC:#FFF;--bgE:#F5F1EA;--bgA:#FFF8ED;--t:#1A1208;--t2:#3D3225;--t3:#6B5D4A;--t4:#9A8D7A;--a:#B07A2E;--abg:rgba(176,122,46,.08);--g:#4A7F4A;--gbg:rgba(74,127,74,.07);--gbd:rgba(74,127,74,.18);--bl:#3A6FA0;--bd:rgba(26,18,8,.09);--bd2:rgba(26,18,8,.16)}
@@ -27,7 +28,9 @@ html{scroll-padding-top:120px}
 .st2{font-family:'Merriweather',serif;font-size:18px;font-weight:600;margin-bottom:6px}
 .sm{font-size:16px;color:var(--t2);line-height:1.85}
 .vlink{color:var(--a);text-decoration:underline;cursor:pointer;font-weight:700;font-size:15px}
-.scr-body{font-family:'Noto Serif',Georgia,serif;font-size:21px;line-height:2.1;padding:28px 30px;background:var(--bgA);border:1px solid var(--bd);border-radius:14px}
+.scr-body{font-family:'Noto Serif',Georgia,serif;font-size:21px;line-height:2.1;padding:28px 30px;background:var(--bgA);border:1px solid var(--bd);border-radius:14px;position:relative;transition:box-shadow .2s}
+.scr-body.vr-reading{box-shadow:0 0 0 2px rgba(212,160,74,.4),0 4px 20px rgba(212,160,74,.1);cursor:pointer}
+.scr-body.vr-reading::after{content:'Tap to pause';position:absolute;bottom:8px;right:14px;font-size:11px;color:rgba(212,160,74,.55);font-family:'Nunito',sans-serif;font-weight:700;pointer-events:none}
 .v-num{font-family:'Nunito';font-size:12px;font-weight:800;color:var(--a);vertical-align:super;margin:0 3px}
 .ch-btn{padding:5px 10px;border-radius:5px;border:none;font-size:13px;font-weight:700;cursor:pointer}.ch-on{background:var(--a);color:#fff}.ch-off{background:var(--abg);color:var(--a)}
 .scholar-bar{position:sticky;top:82px;z-index:50;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 22px;margin-bottom:16px;border-radius:12px;background:var(--bgC);border:2px dashed var(--a);cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(0,0,0,.15);font-family:'Nunito';text-align:left;font-size:15px}
@@ -47,8 +50,28 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
 .cross-wrap::before{content:'';position:absolute;top:50%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,220,120,.15) 0%,rgba(212,160,74,.08) 30%,transparent 70%);pointer-events:none}
 .cross-wrap::after{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,160,74,.06) 0%,transparent 50%);pointer-events:none}
 .cross-frame{display:flex;align-items:center;gap:20px;position:relative;z-index:1}
-.cross-verse{flex:1;font-family:'Merriweather',serif;font-size:13px;font-style:italic;color:rgba(212,160,74,.4);line-height:1.8;text-align:center;padding:10px}
-.cross-verse .verse-ref{display:block;font-style:normal;font-size:11px;font-weight:600;color:rgba(212,160,74,.55);margin-top:8px;font-family:'Nunito',sans-serif;letter-spacing:.05em}
+.cross-verse{flex:1;font-family:'Merriweather',serif;font-size:13px;font-style:italic;color:#3a2a10;line-height:1.85;text-align:center;padding:28px 18px 22px;position:relative;
+  background:linear-gradient(160deg,#f5e8c0 0%,#ede0aa 40%,#e8d898 70%,#f0e6b8 100%);
+  border-radius:6px 6px 4px 4px;
+  border:1px solid #c9a84c;
+  box-shadow:0 4px 18px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,220,.6),inset 0 -1px 0 rgba(139,100,20,.3)}
+.cross-verse::before{content:'';position:absolute;top:0;left:0;right:0;height:14px;
+  background:linear-gradient(to bottom,#c9a048,#b8922e);
+  border-radius:6px 6px 0 0;
+  box-shadow:0 2px 4px rgba(0,0,0,.3)}
+.cross-verse::after{content:'';position:absolute;bottom:0;left:0;right:0;height:10px;
+  background:linear-gradient(to top,#c9a048,#b8922e);
+  border-radius:0 0 4px 4px;
+  box-shadow:0 -2px 4px rgba(0,0,0,.25)}
+.cross-verse .scroll-rod-top{display:block;position:absolute;top:-6px;left:-8px;right:-8px;height:12px;
+  background:linear-gradient(to bottom,#dfc060,#b08020,#dfc060);
+  border-radius:6px;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,240,160,.5)}
+.cross-verse .scroll-rod-bot{display:block;position:absolute;bottom:-6px;left:-8px;right:-8px;height:12px;
+  background:linear-gradient(to bottom,#dfc060,#b08020,#dfc060);
+  border-radius:6px;z-index:2;box-shadow:0 -2px 6px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,240,160,.5)}
+.cross-verse .scroll-title{display:block;font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;font-style:normal;color:#7a5010;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;margin-top:4px;opacity:.8}
+.cross-verse .verse-ref{display:block;font-style:normal;font-size:10px;font-weight:700;color:#6b4a0e;margin-top:6px;font-family:'Nunito',sans-serif;letter-spacing:.05em}
+.cross-verse .verse-ref{display:block;font-style:normal;font-size:11px;font-weight:600;color:rgba(240,210,140,.75);margin-top:8px;font-family:'Nunito',sans-serif;letter-spacing:.05em}
 .cross-center{flex:0 0 auto;width:100%;max-width:520px}
 .cross-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px;position:relative;z-index:1}
 .cross-tab{width:100%;padding:18px 6px;border-radius:12px;border:1px solid rgba(212,160,74,.12);background:rgba(255,255,255,.03);cursor:pointer;text-align:center;font-size:30px;font-family:'Nunito';line-height:1;transition:all .25s;color:rgba(212,160,74,.5)}
@@ -82,10 +105,7 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
   .bk-btn{min-width:75px;font-size:12px;padding:10px 4px}
   .bk-btn .ch-count{font-size:10px}
   .bk-btn .bk-date{font-size:9px}
-  #hero-wrap{border-radius:12px}
-  #hero-wrap div[style*="position:absolute"]{padding:20px 16px 14px!important}
-  #hero-wrap h1{font-size:22px!important}
-  #hero-wrap p{font-size:14px!important}
+  #hero-wrap{border-radius:0}
   .popup{padding:18px 20px;max-width:95vw}
   .popup-txt{font-size:16px}
   .scholar-bar{padding:12px 16px;gap:8px}
@@ -110,15 +130,25 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
 .timeline{position:relative;padding:20px 0;margin:20px 0}.timeline-bar{height:4px;background:var(--bd);border-radius:2px;position:relative}.timeline-fill{height:100%;background:var(--a);border-radius:2px;position:absolute;left:0;top:0}
 .timeline-dot{width:16px;height:16px;border-radius:50%;background:var(--a);border:3px solid var(--bgC);box-shadow:0 0 0 2px var(--a);position:absolute;top:-6px;transform:translateX(-50%)}
 .timeline-label{position:absolute;top:20px;font-size:12px;font-weight:600;color:var(--a);transform:translateX(-50%);white-space:nowrap}
+.vr-word{cursor:pointer}.vr-word.vr-active{background:rgba(212,160,74,.45);border-radius:3px;padding:0 2px;outline:2px solid rgba(212,160,74,.5)}
+input[type=range].vr-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--a);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+
+/* Premium home page */
+#hero-img{transition:opacity .4s}
+#pg-home{padding:0 0 50px!important}
+.home-inner{padding:0 24px}
+#hero-wrap{position:relative;background:#0d0a06;line-height:0}
+@media(max-width:600px){#hero-img{max-height:260px!important}}
 </style>
 </head>
 <body>
 
 <header class="hdr">
 <div class="hdr-in">
-  <div class="logo" onclick="showPage('home')"><div class="logo-t">Berean Buddy</div><div class="logo-s"><span style="font-size:18px">📖</span> Your Bible Study Companion</div></div>
+  <div class="logo" onclick="vrStop();showPage('home')"><div class="logo-t">Berean Buddy</div><div class="logo-s"><span style="font-size:18px">📖</span> Your Bible Study Companion</div></div>
   <div style="display:flex;gap:8px">
     <button class="btn btn-g hidden" id="home-btn" onclick="showPage('home')" style="padding:10px 20px;font-size:16px">← Home</button>
+    <button class="btn btn-s hidden" id="cross-btn" onclick="showPage('study');showTab('overview')" style="padding:10px 20px;font-size:16px">✝️ Back to Cross</button>
     <button class="theme-btn" onclick="toggleTheme()"><span id="ti">🌙</span> <span id="tl">Dark</span></button>
   </div>
 </div>
@@ -129,18 +159,30 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
 </div>
 
 <!-- HOME -->
-<div id="pg-home" class="ctn" style="padding:20px 24px 50px">
-  <div id="hero-wrap" style="border-radius:16px;overflow:hidden;margin-bottom:26px;position:relative">
-    <img id="hero-img" alt="The Binding of Isaac" style="width:100%;display:block;border-radius:16px">
-    <div style="position:absolute;bottom:0;left:0;right:0;padding:60px 26px 18px;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.4) 50%,transparent 100%)">
-      <h1 style="font-family:'Merriweather',serif;font-size:26px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);margin-bottom:2px">Berean Buddy</h1>
-      <p style="font-size:15px;color:rgba(255,255,255,.85)">Deep study in original languages and historical context</p>
-    </div>
+<div id="pg-home" class="ctn" style="padding:0 0 50px">
+
+  <!-- PREMIUM HERO — image only, no text overlay -->
+  <div id="hero-wrap" style="position:relative;margin-bottom:0;background:#0d0a06;line-height:0">
+    <img id="hero-img" alt="The Binding of Isaac"
+      style="width:100%;height:auto;display:block;max-height:420px;object-fit:contain;object-position:center center">
+    <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,#0d0a06,transparent);pointer-events:none"></div>
   </div>
-  <div style="text-align:center;padding:26px;background:var(--bgA);border-radius:14px;border:1px solid var(--bd);margin-bottom:24px">
-    <blockquote style="font-family:'Merriweather',serif;font-size:17px;font-style:italic;color:var(--t2);line-height:1.85;max-width:620px;margin:0 auto 10px">"Now these were more noble-minded than those in Thessalonica, for they received the word with great eagerness, examining the Scriptures daily to see whether these things were so."</blockquote>
-    <cite style="font-size:15px;font-weight:600;color:var(--a);font-style:normal">— Acts 17:11 (NASB)</cite>
+
+  <!-- TITLE BLOCK — below image, premium dark card -->
+  <div style="background:linear-gradient(180deg,#0d0a06 0%,#1a1208 100%);padding:20px 28px 24px;text-align:center;border-bottom:1px solid rgba(212,160,74,.12)">
+    <div style="font-family:'Merriweather',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(212,160,74,.55);margin-bottom:8px">Genesis · The Binding of Isaac</div>
+    <h1 style="font-family:'Merriweather',serif;font-size:30px;font-weight:900;color:#f0e8d8;letter-spacing:-.01em;margin-bottom:6px">Berean Buddy</h1>
+    <p style="font-size:14px;color:rgba(200,180,140,.65);letter-spacing:.03em">Deep study in Scripture, original languages &amp; history</p>
+    <div style="width:40px;height:1px;background:rgba(212,160,74,.4);margin:14px auto 0"></div>
   </div>
+
+  <!-- ACTS 17:11 BANNER -->
+  <div style="background:linear-gradient(135deg,#1a1208 0%,#241808 100%);padding:22px 28px;text-align:center;border-bottom:1px solid rgba(212,160,74,.15)">
+    <blockquote style="font-family:'Merriweather',serif;font-size:15px;font-style:italic;color:rgba(240,210,140,.85);line-height:1.9;max-width:580px;margin:0 auto 8px">"Now these were more noble-minded than those in Thessalonica, for they received the word with great eagerness, examining the Scriptures daily to see whether these things were so."</blockquote>
+    <cite style="font-size:13px;font-weight:700;color:rgba(212,160,74,.7);font-style:normal;letter-spacing:.08em">— ACTS 17:11 (NASB)</cite>
+  </div>
+
+  <div style="padding:24px 24px 0">
   <button class="scholar-bar" style="position:relative;top:auto;margin-bottom:28px" onclick="showPage('study');showTab('scripture')">
     <span style="font-size:26px">🔍</span><div><div style="font-size:17px;font-weight:700;color:var(--a)">Tap to Ask the Berean Scholar</div><div style="font-size:14px;color:var(--t3)">Original languages · Historical context · Theology</div></div>
   </button>
@@ -188,6 +230,7 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
   </div>
   <p style="text-align:center;font-size:14px;color:var(--t4);font-style:italic">Genesis study available now. More books and topics coming.</p>
 </div>
+  </div><!-- end padding -->
 
 <!-- TOPIC -->
 <div id="pg-topic" class="ctn hidden" style="padding:22px 24px 50px">
@@ -208,6 +251,8 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
     <div class="cross-frame">
       <!-- Isaiah - Left Side -->
       <div class="cross-verse">
+        <span class="scroll-rod-top"></span>
+        <span class="scroll-title">Isaiah 53</span>
         "He was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed."
         <span class="verse-ref">— Isaiah 53:5</span>
         <br><br>
@@ -219,6 +264,7 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
         <br><br>
         "Yet it was the will of the LORD to crush him; he has put him to grief; when his soul makes an offering for guilt, he shall see his offspring; he shall prolong his days."
         <span class="verse-ref">— Isaiah 53:10</span>
+        <span class="scroll-rod-bot"></span>
       </div>
 
       <!-- Cross Grid - Center -->
@@ -241,6 +287,8 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
 
       <!-- John - Right Side -->
       <div class="cross-verse">
+        <span class="scroll-rod-top"></span>
+        <span class="scroll-title">John 1 &amp; 3</span>
         "In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God. All things were made through him."
         <span class="verse-ref">— John 1:1-3</span>
         <br><br>
@@ -252,6 +300,7 @@ a.ext{font-size:15px;font-weight:600;color:var(--bl);text-decoration:none}a.ext:
         <br><br>
         "And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth."
         <span class="verse-ref">— John 1:14</span>
+        <span class="scroll-rod-bot"></span>
       </div>
     </div>
 
@@ -352,30 +401,35 @@ var NT_BOOKS=[
 {n:"Revelation",a:"Rev",ch:22,dt:"~95 AD",grp:"prophecy",ord:27,chr:27}
 ];
 
-function showPage(p){['home','study','topic'].forEach(function(x){document.getElementById('pg-'+x).classList.toggle('hidden',x!==p);});document.getElementById('home-btn').classList.toggle('hidden',p==='home');if(p==='study'){showTab('overview');setTimeout(function(){var cw=document.querySelector('.cross-wrap');if(cw){var hh=document.querySelector('.hdr').offsetHeight+10;window.scrollTo({top:cw.getBoundingClientRect().top+window.pageYOffset-hh,behavior:'smooth'});}},150);}else{window.scrollTo({top:0,behavior:'smooth'});}}
-function showTab(t){currentTab=t;TABS.forEach(function(x){document.getElementById('content-'+x).classList.toggle('hidden',x!==t);var btn=document.getElementById('tab-'+x);if(btn){btn.classList.toggle('on',x===t);if(x==='christo'){btn.classList.add('christ');}}});if(t==='scripture')loadChapter(currentCh);
-  // Add back-to-cross button at top of active content
-  document.querySelectorAll('.back-cross-btn').forEach(function(b){b.remove();});
-  var el=document.getElementById('content-'+t);
-  if(el){
-    var backBtn=document.createElement('button');
-    backBtn.className='btn btn-s back-cross-btn';
-    var hdrH = document.querySelector('.hdr').offsetHeight + 10;
-    backBtn.style.cssText='margin-bottom:16px;padding:12px 22px;font-size:16px;display:flex;align-items:center;gap:8px;position:sticky;top:'+hdrH+'px;z-index:40;box-shadow:0 4px 12px rgba(0,0,0,.1);background:var(--bgC);border:1px solid rgba(176,122,46,.3);border-radius:10px';
-    backBtn.innerHTML='✝️ Back to Cross';
-    backBtn.onclick=function(){var cw=document.querySelector('.cross-wrap');var hh=document.querySelector('.hdr').offsetHeight+10;window.scrollTo({top:cw.getBoundingClientRect().top+window.pageYOffset-hh,behavior:'smooth'});};
-    el.insertBefore(backBtn,el.firstChild);
-    setTimeout(function(){
-      var hh=document.querySelector('.hdr').offsetHeight+10;
-      var rect=el.getBoundingClientRect();
-      window.scrollTo({top:rect.top+window.pageYOffset-hh,behavior:'smooth'});
-    },50);
-  }
+function showPage(p){vrStop();['home','study','topic'].forEach(function(x){document.getElementById('pg-'+x).classList.toggle('hidden',x!==p);});document.getElementById('home-btn').classList.toggle('hidden',p==='home');document.getElementById('cross-btn').classList.toggle('hidden',p==='home');if(p==='study'){showTab('overview');setTimeout(function(){var cw=document.querySelector('.cross-wrap');if(cw){var hh=document.querySelector('.hdr').offsetHeight+10;window.scrollTo({top:cw.getBoundingClientRect().top+window.pageYOffset-hh,behavior:'smooth'});}},150);}else{window.scrollTo({top:0,behavior:'smooth'});}}
+function showTab(t){
+  vrStop();
+  currentTab=t;
+  TABS.forEach(function(x){
+    document.getElementById('content-'+x).classList.toggle('hidden',x!==t);
+    var btn=document.getElementById('tab-'+x);
+    if(btn){btn.classList.toggle('on',x===t);if(x==='christo'){btn.classList.add('christ');}}
+  });
+  if(t==='scripture')loadChapter(currentCh);
+  // Scroll so the content panel top is just below the sticky header
+  setTimeout(function(){
+    var el=document.getElementById('content-'+t);
+    if(el){
+      var hh=document.querySelector('.hdr').offsetHeight+12;
+      var top=el.getBoundingClientRect().top+window.pageYOffset-hh;
+      window.scrollTo({top:top,behavior:'smooth'});
+    }
+  },60);
 }
 function toggleTheme(){isDark=!isDark;document.documentElement.setAttribute('data-theme',isDark?'dark':'');document.getElementById('ti').textContent=isDark?'\u2600\uFE0F':'\uD83C\uDF19';document.getElementById('tl').textContent=isDark?'Light':'Dark';}
 function toggleScholar(){var p=document.getElementById('scholar-panel');var l=document.getElementById('scholar-label');var o=!p.classList.contains('hidden');p.classList.toggle('hidden');l.textContent=o?'Tap to Ask the Berean Scholar':'Scholar Open \u2014 Scroll Down \u2193';}
 
-function loadChapter(ch){currentCh=ch;var v=document.getElementById('ver-select').value;document.getElementById('ch-title').textContent='Genesis '+ch;document.getElementById('ch-counter').textContent='Ch '+ch+'/50';document.getElementById('scripture-text').innerHTML='<p style="text-align:center;padding:30px;color:var(--t3)">Loading...</p>';var b=document.getElementById('ch-buttons');b.innerHTML='';for(var i=1;i<=50;i++){(function(n){var btn=document.createElement('button');btn.textContent=n;btn.className='ch-btn '+(n===ch?'ch-on':'ch-off');btn.onclick=function(){loadChapter(n);};b.appendChild(btn);})(i);}fetch('https://bolls.life/get-text/'+v+'/1/'+ch+'/').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){var h='';d.forEach(function(x){if(x.verse>0)h+='<sup class="v-num">'+x.verse+'</sup>';h+=x.text.replace(/<\/?[^>]+(>|$)/g,'')+' ';});document.getElementById('scripture-text').innerHTML=h;}).catch(function(){document.getElementById('scripture-text').innerHTML='<p style="color:red">Unable to load.</p>';});}
+function scrollToScripture(){var st=document.getElementById('scripture-text');if(st){var hh=document.querySelector('.hdr').offsetHeight+10;window.scrollTo({top:st.getBoundingClientRect().top+window.pageYOffset-hh,behavior:'smooth'});}}
+function loadChapter(ch){currentCh=ch;var v=document.getElementById('ver-select').value;document.getElementById('ch-title').textContent='Genesis '+ch;document.getElementById('ch-counter').textContent='Ch '+ch+'/50';document.getElementById('scripture-text').innerHTML='<p style="text-align:center;padding:30px;color:var(--t3)">Loading...</p>';var b=document.getElementById('ch-buttons');b.innerHTML='';for(var i=1;i<=50;i++){(function(n){var btn=document.createElement('button');btn.textContent=n;btn.className='ch-btn '+(n===ch?'ch-on':'ch-off');btn.onclick=function(){loadChapter(n);scrollToScripture();};b.appendChild(btn);})(i);}fetch('https://bolls.life/get-text/'+v+'/1/'+ch+'/').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){var h='';d.forEach(function(x){if(x.verse>0)h+='<sup class="v-num">'+x.verse+'</sup>';var t=x.text.replace(/<\/?[^>]+(>|$)/g,'');t=t.replace(/^\s*\d+\s+/,'');h+=t+' ';});document.getElementById('scripture-text').innerHTML=h;
+    // Re-attach click-to-stop after innerHTML rebuild
+    var _st=document.getElementById('scripture-text');
+    if(_st)_st.onclick=function(){if(VR.running||VR.paused)vrStop();};
+  }).catch(function(){document.getElementById('scripture-text').innerHTML='<p style="color:red">Unable to load.</p>';});}
 
 function showVerse(ref){var c=ref.split(',')[0].split(';')[0].trim();document.getElementById('vpop').classList.remove('hidden');var v=document.getElementById('ver-select')?document.getElementById('ver-select').value:'ESV';document.getElementById('vr').textContent=c+' ('+v+')';document.getElementById('vt').textContent='Loading...';var m=c.match(/^(.+?)\s+(\d+):(\d+)(?:\s*[-\u2013]\s*(\d+))?/);if(!m){document.getElementById('vt').textContent='Could not parse: '+c;return;}var bk=BM[m[1]];if(!bk){document.getElementById('vt').textContent='Unknown book: '+m[1];return;}fetch('https://bolls.life/get-text/'+v+'/'+bk+'/'+m[2]+'/').then(function(r){if(!r.ok)throw new Error('API');return r.json();}).then(function(d){var s=parseInt(m[3]),e=m[4]?parseInt(m[4]):s;var f=d.filter(function(x){return x.verse>=s&&x.verse<=e;});if(!f.length)document.getElementById('vt').textContent='Not found.';else document.getElementById('vt').textContent=f.map(function(x){return x.verse+' '+x.text.replace(/<\/?[^>]+(>|$)/g,'');}).join(' ');}).catch(function(e){document.getElementById('vt').textContent='Error: '+e.message;});}
 function closePopup(){document.getElementById('vpop').classList.add('hidden');}
@@ -428,7 +482,12 @@ function init(){
 
   // Build all tab content
   // Scripture tab
-  document.getElementById('content-scripture').innerHTML='<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap"><h3 class="st" style="margin:0" id="ch-title">Genesis 1</h3><select class="ver-sel" id="ver-select" onchange="loadChapter(currentCh)"><option value="ESV">ESV</option><option value="KJV">KJV</option><option value="NASB">NASB</option><option value="NKJV">NKJV</option><option value="NIV">NIV</option><option value="NLT">NLT</option></select></div><button class="scholar-bar" onclick="toggleScholar()"><span style="font-size:24px">\uD83D\uDD0D</span><div><div style="font-size:16px;font-weight:700;color:var(--a)" id="scholar-label">Tap to Ask the Berean Scholar</div><div style="font-size:13px;color:var(--t3)">Original Hebrew \u00B7 Historical Context \u00B7 Christ Connections</div></div></button><div id="scholar-panel" class="hidden" style="margin-bottom:16px;background:var(--bgC);border:2px solid var(--a);border-radius:14px;padding:24px;text-align:center"><div style="font-size:40px;margin-bottom:10px">\uD83D\uDD0D</div><p style="font-size:18px;font-weight:700;margin-bottom:10px">Berean Scholar \u2014 Coming Soon!</p><p class="sm" style="max-width:420px;margin:0 auto 16px">AI-powered deep study in original Hebrew with historical context.</p><button class="btn btn-s" onclick="toggleScholar()">Close</button></div><div id="ch-buttons" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px"></div><div class="scr-body" id="scripture-text"><p style="color:var(--t3)">Loading...</p></div><div style="display:flex;justify-content:space-between;margin-top:14px"><button class="btn btn-g" style="padding:8px 16px;font-size:14px" onclick="loadChapter(Math.max(1,currentCh-1))">\u2190 Prev</button><span style="font-size:14px;color:var(--t3);align-self:center" id="ch-counter">Ch 1/50</span><button class="btn btn-g" style="padding:8px 16px;font-size:14px" onclick="loadChapter(Math.min(50,currentCh+1))">Next \u2192</button></div>';
+  document.getElementById('content-scripture').innerHTML='<div class="sh" style="background:linear-gradient(135deg,var(--bgA),var(--abg));margin-bottom:18px"><span class="ico">\uD83D\uDCDC</span><h3>Genesis \u2014 Read Scripture</h3><p>Six translations \u00B7 Follow-along audio reader \u00B7 Chapter navigation</p></div><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap"><h3 class="st" style="margin:0" id="ch-title">Genesis 1</h3><select class="ver-sel" id="ver-select" onchange="loadChapter(currentCh)"><option value="ESV">ESV</option><option value="KJV">KJV</option><option value="NASB">NASB</option><option value="NKJV">NKJV</option><option value="NIV">NIV</option><option value="NLT">NLT</option></select></div><button class="scholar-bar" onclick="toggleScholar()"><span style="font-size:24px">\uD83D\uDD0D</span><div><div style="font-size:16px;font-weight:700;color:var(--a)" id="scholar-label">Tap to Ask the Berean Scholar</div><div style="font-size:13px;color:var(--t3)">Original Hebrew \u00B7 Historical Context \u00B7 Christ Connections</div></div></button><div id="scholar-panel" class="hidden" style="margin-bottom:16px;background:var(--bgC);border:2px solid var(--a);border-radius:14px;padding:24px;text-align:center"><div style="font-size:40px;margin-bottom:10px">\uD83D\uDD0D</div><p style="font-size:18px;font-weight:700;margin-bottom:10px">Berean Scholar \u2014 Coming Soon!</p><p class="sm" style="max-width:420px;margin:0 auto 16px">AI-powered deep study in original Hebrew with historical context.</p><button class="btn btn-s" onclick="toggleScholar()">Close</button></div><div id="voice-reader-bar" style="margin-bottom:16px;background:var(--bgC);border:1px solid var(--bd2);border-radius:16px;padding:16px 20px;box-shadow:0 2px 12px rgba(0,0,0,.08)"><div style="display:flex;align-items:center;gap:14px"><button id="vr-play-btn" onclick="vrToggle()" style="display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;background:var(--a);color:#fff;border:none;font-family:\'Nunito\';font-weight:700;font-size:15px;cursor:pointer;flex-shrink:0;box-shadow:0 2px 8px rgba(176,122,46,.35)"><span id="vr-play-ico" style="font-size:16px">&#9654;</span><span id="vr-play-lbl">Read Aloud</span></button><button onclick="vrStop()" title="Stop" style="width:38px;height:38px;border-radius:50%;background:var(--bgE);border:1px solid var(--bd);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--t3)">&#9209;</button><div style="flex:1;min-width:0"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em">Speed</span><span id="vr-rate-lbl" style="font-size:13px;font-weight:800;color:var(--a)">1&#215;</span></div><input id="vr-slider" type="range" min="0.7" max="2" step="0.1" value="1" oninput="vrSliderChange(this.value)" style="width:100%;height:5px;-webkit-appearance:none;appearance:none;background:linear-gradient(to right,var(--a) 0%,var(--a) 23%,var(--bd2) 23%,var(--bd2) 100%);border-radius:4px;outline:none;cursor:pointer;accent-color:var(--a)"><div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:10px;color:var(--t4)">0.7&#215;</span><span style="font-size:10px;color:var(--t4)">1&#215;</span><span style="font-size:10px;color:var(--t4)">1.5&#215;</span><span style="font-size:10px;color:var(--t4)">2&#215;</span></div></div></div><div id="vr-status" style="font-size:12px;color:var(--t3);margin-top:8px;min-height:16px;font-style:italic"></div></div><div id="ch-buttons" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px"></div><div class="scr-body" id="scripture-text"><p style="color:var(--t3)">Loading...</p></div><div style="display:flex;justify-content:space-between;margin-top:14px"><button class="btn btn-g" style="padding:8px 16px;font-size:14px" onclick="loadChapter(Math.max(1,currentCh-1));setTimeout(scrollToScripture,300)">\u2190 Prev</button><span style="font-size:14px;color:var(--t3);align-self:center" id="ch-counter">Ch 1/50</span><button class="btn btn-g" style="padding:8px 16px;font-size:14px" onclick="loadChapter(Math.min(50,currentCh+1));setTimeout(scrollToScripture,300)">Next \u2192</button></div>';
+  // Persistent click-to-pause on scripture text area
+  (function addScrClick(){
+    var area=document.getElementById('scripture-text');
+    if(area)area.addEventListener('click',function(){if(VR.running||VR.paused)vrStop();});
+  })();
 
   // Overview
   document.getElementById('content-overview').innerHTML='<div class="sh" style="background:linear-gradient(135deg,var(--bgA),var(--abg))"><span class="ico">\uD83D\uDCD6</span><h3>Genesis \u2014 A Thorough Overview</h3><p>Who, What, When, Where, and Why</p></div><div class="card"><div class="st2">\u270D\uFE0F Who Wrote Genesis?</div><p class="sm">Moses, during the wilderness period (~1446\u20131406 BC). Supported by Christ\'s direct attribution (John 5:46), internal testimony (Exo 17:14, 24:4, Deut 31:9), unbroken Jewish tradition, and the author\'s knowledge of Egyptian customs consistent with Pharaoh\'s court (Acts 7:22). The Documentary Hypothesis (JEDP) has been challenged by Kitchen, Garrett, and Berman.</p></div><div class="card"><div class="st2">\uD83D\uDCD6 What Is Genesis About?</div><p class="sm">Hebrew <strong>Bereshit</strong> ("in the beginning"). Establishes every foundational theme: creation, God\'s nature, human dignity and fallenness, sin and death, judgment and mercy, covenant, election, and redemption through substitutionary sacrifice. <strong>Primeval History</strong> (ch 1\u201311): creation, fall, flood, Babel. <strong>Patriarchal History</strong> (ch 12\u201350): Abraham, Isaac, Jacob, Joseph.</p></div><div class="card"><div class="st2">\uD83D\uDCC5 When Was It Written?</div><p class="sm">During the 40 years of wilderness wandering. Moses drew on divine revelation, oral traditions through the patriarchal line, and possibly written records \u2014 the "toledot" (\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA) formula appears 11 times and may indicate pre-existing source documents. Events span from creation through Joseph\'s death (~1805 BC).</p></div><div class="card"><div class="st2">\uD83D\uDCCD Where Does It Take Place?</div><p class="sm">Eden (Mesopotamia), Ararat (Turkey), Babel/Babylon (Iraq), Ur of the Chaldees (Iraq), Haran (Turkey), Canaan (Israel/Palestine \u2014 Shechem, Bethel, Hebron, Beer-sheba, Jerusalem/Salem), and Egypt (Goshen). Every location archaeologically identified or with strong candidates.</p></div><div class="card"><div class="st2">\u2753 Why Does Genesis Matter?</div><p class="sm">Without Genesis, nothing else makes sense. It establishes why we need a Savior (Gen 3), how God saves (substitutionary sacrifice, Gen 3:21, 22:13), the Messianic promise (Gen 3:15), the covenant framework (Gen 12, 15, 17), and Israel\'s election for all nations (Gen 12:3). Jesus, Paul, Peter, and Hebrews all treat Genesis as foundational and authoritative.</p></div><h3 class="st" style="margin-top:20px">\uD83D\uDCFA The Bible Project</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><a href="https://www.youtube.com/watch?v=KOUV7mWDI34" target="_blank" style="display:block;border-radius:10px;overflow:hidden;border:1px solid var(--bd);text-decoration:none"><img src="https://img.youtube.com/vi/KOUV7mWDI34/mqdefault.jpg" style="width:100%;display:block"><div style="padding:8px 12px;background:var(--bgE);font-size:14px;font-weight:700;color:var(--a)">Genesis 1\u201311 \u25B6</div></a><a href="https://www.youtube.com/watch?v=GQI72THyO5I" target="_blank" style="display:block;border-radius:10px;overflow:hidden;border:1px solid var(--bd);text-decoration:none"><img src="https://img.youtube.com/vi/GQI72THyO5I/mqdefault.jpg" style="width:100%;display:block"><div style="padding:8px 12px;background:var(--bgE);font-size:14px;font-weight:700;color:var(--a)">Genesis 12\u201350 \u25B6</div></a></div>';
@@ -503,6 +562,191 @@ function buildApologeticsTab(){document.getElementById('content-apologetics').in
 
 function buildCommentaryTab(){document.getElementById('content-commentary').innerHTML='<div class="sh" style="background:linear-gradient(135deg,var(--bgA),var(--abg))"><span class="ico">\uD83D\uDCDA</span><h3>Commentaries Through the Ages</h3><p>Public domain commentaries</p></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">354\u2013430</div><div class="st2">Augustine</div><a class="ext" href="https://www.newadvent.org/fathers/1402.htm" target="_blank">\uD83D\uDCD6 Read \u2192</a></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">1509\u20131564</div><div class="st2">John Calvin</div><a class="ext" href="https://www.ccel.org/ccel/calvin/calcom01" target="_blank">\uD83D\uDCD6 Read \u2192</a></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">1662\u20131714</div><div class="st2">Matthew Henry</div><a class="ext" href="https://www.biblestudytools.com/commentaries/matthew-henry-complete/genesis/" target="_blank">\uD83D\uDCD6 Read \u2192</a></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">1834\u20131892</div><div class="st2">C.H. Spurgeon</div><a class="ext" href="https://www.spurgeon.org/resource-library/scripture-index/genesis/" target="_blank">\uD83D\uDCD6 Read \u2192</a></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">1798\u20131870</div><div class="st2">Albert Barnes</div><a class="ext" href="https://www.biblestudytools.com/commentaries/barnes-notes-on-the-bible/genesis/" target="_blank">\uD83D\uDCD6 Read \u2192</a></div><div class="card card-a"><div style="font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase">1871</div><div class="st2">Jamieson, Fausset & Brown</div><a class="ext" href="https://www.biblestudytools.com/commentaries/jamieson-fausset-brown/genesis/" target="_blank">\uD83D\uDCD6 Read \u2192</a></div>';}
 
+// ===== VOICE READER =====
+var VR={running:false,paused:false,rate:1,wordIdx:0,words:[],timer:null};
+
+// Preferred voice — US English Male from ResponsiveVoice is neural quality
+var VR_VOICE='US English Male';
+
+function vrBuildWordSpans(){
+  var el=document.getElementById('scripture-text');
+  if(!el)return;
+  function wrapNode(node){
+    if(node.nodeType===3){
+      var parts=node.textContent.split(/(\s+)/);
+      var frag=document.createDocumentFragment();
+      parts.forEach(function(p){
+        if(/^\s+$/.test(p)||p===''){frag.appendChild(document.createTextNode(p));}
+        else{var s=document.createElement('span');s.className='vr-word';s.textContent=p;frag.appendChild(s);}
+      });
+      node.parentNode.replaceChild(frag,node);
+    }else if(node.nodeType===1&&node.tagName!=='SUP'&&node.tagName!=='SCRIPT'){
+      Array.from(node.childNodes).forEach(wrapNode);
+    }
+  }
+  wrapNode(el);
+  // Click handled by persistent listener added at tab init
+}
+
+function vrClearHighlight(){document.querySelectorAll('.vr-word.vr-active').forEach(function(e){e.classList.remove('vr-active');});}
+
+function vrHighlight(idx){
+  vrClearHighlight();
+  var spans=document.querySelectorAll('.vr-word');
+  if(idx>=0&&idx<spans.length){
+    spans[idx].classList.add('vr-active');
+    spans[idx].scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+}
+
+function vrSetStatus(txt){var s=document.getElementById('vr-status');if(s)s.textContent=txt;}
+
+function vrUpdateUI(){
+  var ico=document.getElementById('vr-play-ico');
+  var lbl=document.getElementById('vr-play-lbl');
+  var sb=document.getElementById('scripture-text');
+  if(!ico)return;
+  if(VR.running&&!VR.paused){
+    ico.textContent='\u23F8';lbl.textContent='Pause';
+    vrSetStatus('Reading\u2026 tap text to pause');
+    if(sb&&sb.closest)sb.closest('.scr-body')&&sb.closest('.scr-body').classList.add('vr-reading');
+  } else if(VR.paused){
+    ico.textContent='\u25B6';lbl.textContent='Resume';
+    vrSetStatus('Paused \u2014 tap text or Resume');
+    if(sb&&sb.closest)sb.closest('.scr-body')&&sb.closest('.scr-body').classList.remove('vr-reading');
+  } else {
+    ico.textContent='\u25B6';lbl.textContent='Read Aloud';vrSetStatus('');
+    if(sb&&sb.closest)sb.closest('.scr-body')&&sb.closest('.scr-body').classList.remove('vr-reading');
+  }
+}
+
+function vrToggle(){
+  if(VR.running&&!VR.paused)vrTogglePause();
+  else if(VR.paused)vrTogglePause();
+  else vrStart();
+}
+
+function vrTogglePause(){
+  if(!VR.running&&!VR.paused)return;
+  if(VR.paused){
+    VR.paused=false;vrUpdateUI();
+    vrSpeakFrom(VR.wordIdx);
+  }else{
+    VR.paused=true;
+    if(typeof responsiveVoice!=='undefined')responsiveVoice.cancel();
+    if(VR.timer)clearTimeout(VR.timer);
+    vrUpdateUI();
+  }
+}
+
+function vrStart(){
+  vrStop(true);
+  vrBuildWordSpans();
+  var spans=Array.from(document.querySelectorAll('.vr-word'));
+  if(!spans.length)return;
+  VR.words=spans.map(function(s){return s.textContent;});
+  VR.wordIdx=0;VR.running=true;VR.paused=false;
+  vrUpdateUI();
+  vrSpeakFrom(0);
+}
+
+function vrSpeakFrom(startIdx){
+  if(!VR.running||VR.paused)return;
+  if(startIdx>=VR.words.length){vrDone();return;}
+
+  // Build a sentence-sized chunk from startIdx
+  var chunk='';var endIdx=startIdx;
+  var maxW=30;
+  while(endIdx<VR.words.length&&endIdx-startIdx<maxW){
+    chunk+=VR.words[endIdx]+' ';
+    endIdx++;
+    if(/[.!?]$/.test(VR.words[endIdx-1])&&endIdx-startIdx>=6)break;
+  }
+  chunk=chunk.trim();
+  VR.wordIdx=startIdx;
+
+  // Highlight word-by-word using timing estimate
+  var wordList=chunk.split(/\s+/);
+  var msPerWord=Math.round(1000/(VR.rate*2.5));
+  wordList.forEach(function(w,i){
+    VR.timer=setTimeout(function(){
+      if(VR.running&&!VR.paused)vrHighlight(startIdx+i);
+    },i*msPerWord);
+  });
+
+  if(typeof responsiveVoice!=='undefined'){
+    responsiveVoice.speak(chunk, VR_VOICE, {
+      rate: VR.rate,
+      pitch: 1,
+      volume: 1,
+      onend: function(){
+        if(VR.running&&!VR.paused){
+          VR.wordIdx=endIdx;
+          vrSpeakFrom(endIdx);
+        }
+      },
+      onerror: function(){
+        if(VR.running&&!VR.paused){VR.wordIdx=endIdx;vrSpeakFrom(endIdx);}
+      }
+    });
+  } else {
+    // Fallback to browser TTS
+    vrFallbackSpeak(chunk,function(){if(VR.running&&!VR.paused){VR.wordIdx=endIdx;vrSpeakFrom(endIdx);}});
+  }
+}
+
+function vrFallbackSpeak(text,onend){
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(text);
+  u.rate=VR.rate;u.lang='en-US';
+  var voices=window.speechSynthesis.getVoices();
+  var v=voices.find(function(v){return v.lang==='en-US'&&v.localService;})||voices.find(function(v){return v.lang==='en-US';})||null;
+  if(v)u.voice=v;
+  u.onend=onend;u.onerror=onend;
+  window.speechSynthesis.speak(u);
+}
+
+function vrStop(silent){
+  VR.running=false;VR.paused=false;VR.wordIdx=0;
+  if(VR.timer)clearTimeout(VR.timer);
+  try{if(typeof responsiveVoice!=='undefined')responsiveVoice.cancel();}catch(e){}
+  try{if(window.speechSynthesis)window.speechSynthesis.cancel();}catch(e){}
+  vrClearHighlight();
+  if(!silent)vrUpdateUI();
+}
+
+function vrDone(){
+  VR.running=false;VR.paused=false;vrClearHighlight();vrUpdateUI();vrSetStatus('');
+  var next=Math.min(50,currentCh+1);
+  if(next!==currentCh){
+    vrSetStatus('Loading next chapter…');
+    loadChapter(next);
+    setTimeout(function(){scrollToScripture();setTimeout(vrStart,900);},700);
+  }
+}
+
+function vrSetRate(r){
+  VR.rate=r;
+  var lbl=document.getElementById('vr-rate-lbl');if(lbl)lbl.textContent=r+'×';
+  var slider=document.getElementById('vr-slider');if(slider){
+    var pct=((r-0.7)/1.3*100).toFixed(1)+'%';
+    slider.style.background='linear-gradient(to right,var(--a) 0%,var(--a) '+pct+',var(--bd2) '+pct+',var(--bd2) 100%)';
+  }
+  if(VR.running&&!VR.paused){var idx=VR.wordIdx;vrStop(true);VR.running=true;setTimeout(function(){vrSpeakFrom(idx);},100);}
+}
+
+function vrSliderChange(val){
+  var r=Math.round(parseFloat(val)*10)/10;
+  vrSetRate(r);
+}
+// ===== END VOICE READER =====
+
+// Log voices for debugging
+if(window.speechSynthesis){
+  function logVoices(){var vv=window.speechSynthesis.getVoices();if(vv.length)console.log('Available voices:',vv.map(function(v){return v.name+' ('+v.lang+')';}).join(', '));}
+  window.speechSynthesis.onvoiceschanged=logVoices;
+  setTimeout(logVoices,500);
+}
 init();
 </script>
 </body>
